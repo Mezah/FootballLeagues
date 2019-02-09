@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/leaguesFragment">
+
+    <fragment
+        android:id="@+id/leaguesFragment"
+        android:name="com.example.footballleagues.view.leagues.LeaguesFragment"
+        android:label="LeaguesFragment" >
+        <action
+            android:id="@+id/action_leaguesFragment_to_teamsFragment"
+            app:destination="@id/teamsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamsFragment"
+        android:name="com.example.footballleagues.view.teams.TeamsFragment"
+        android:label="TeamsFragment" >
+        <action
+            android:id="@+id/action_teamsFragment_to_teamFragment"
+            app:destination="@id/teamFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamFragment"
+        android:name="com.example.footballleagues.view.team.TeamFragment"
+        android:label="TeamFragment" />
+</navigation>
