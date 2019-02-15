@@ -1,7 +1,6 @@
 package com.example.footballleagues.repository.remote
 
 import com.example.footballleagues.BuildConfig
-import com.example.footballleagues.R
 import com.example.footballleagues.data.api.LeaguesResponse
 import com.example.footballleagues.data.api.TeamResponse
 import com.example.footballleagues.data.api.TeamsResponse
@@ -85,8 +84,3 @@ class FootballWebClient private constructor() {
     }
 }
 
-sealed class Result<out R> {
-    object Loading : Result<Nothing>()
-    data class Success(val data: R) : Result<R>()
-    data class Error(val error: Exception) : Result<Nothing>()
-}
