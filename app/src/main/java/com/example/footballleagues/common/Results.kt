@@ -1,5 +1,7 @@
 package com.example.footballleagues.common
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import io.reactivex.observers.DisposableSingleObserver
 
@@ -42,30 +44,40 @@ class EventObserver<T>(private val onEventUnhandledContent: (T) -> Unit) : Obser
         }
     }
 }
+
 /**
  * This concept is also borrowed from Google IO018 app
  */
 sealed class FBResult<out T> {
-    object Loading : FBResult<Nothing>()
+    data class Loading(val loading: Boolean) : FBResult<Nothing>()
     data class Success<T>(val data: T) : FBResult<T>()
     data class Error(val error: Exception) : FBResult<Nothing>()
 }
 
 
-class CustomDisposable<T> : DisposableSingleObserver<T>() {
-
-    var result: FBResult<T> = FBResult.Loading
+class CustomDisposable<T>(private val loading:Boolean) : DisposableSingleObserver<T>() {
+    private var result: FBResult<T>
+    private val resultLiveData = MutableLiveData<FBResult<T>>()
+    init {
+        result = FBResult.Loading(loading)
+        resultLiveData.postValue(result)
+    }
 
     override fun onSuccess(t: T) {
         result = FBResult.Success(t)
+        resultLiveData.postValue(result)
+
     }
 
     override fun onError(e: Throwable) {
         result = FBResult.Error(e as Exception)
+        resultLiveData.postValue(result)
+
     }
 
-    fun getCallingResult(): FBResult<T> {
-        return result
+    fun getCallingResult(): LiveData<FBResult<T>> {
+
+        return resultLiveData
     }
 
 }
