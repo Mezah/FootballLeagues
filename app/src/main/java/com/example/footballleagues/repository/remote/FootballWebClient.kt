@@ -1,16 +1,17 @@
 package com.example.footballleagues.repository.remote
 
 import com.example.footballleagues.BuildConfig
+import com.example.footballleagues.R
 import com.example.footballleagues.data.api.LeaguesResponse
 import com.example.footballleagues.data.api.TeamResponse
 import com.example.footballleagues.data.api.TeamsResponse
 import com.google.gson.GsonBuilder
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import kotlinx.coroutines.Deferred
+import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Response
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -40,7 +41,7 @@ class FootballWebClient private constructor() {
 
         builder.baseUrl(BuildConfig.BASE_URL)
             .client(okhttpClient)
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
         return builder.build().create(FootballAPIEndPoint::class.java)
     }
@@ -64,21 +65,28 @@ class FootballWebClient private constructor() {
 
     }
 
-    fun getTierOneLeaguesList(): Deferred<Response<LeaguesResponse>> {
+    fun getTierOneLeaguesList(): Single<LeaguesResponse> {
         return endPoint.getLeaguesList()
+            .subscribeOn(Schedulers.io())
     }
 
-    fun getTeamsListInLeagues(leagueId: String): Deferred<Response<TeamsResponse>> {
+    fun getTeamsListInLeagues(leagueId: String): Single<TeamsResponse> {
         return endPoint.getTeamsListInLeague(
             BuildConfig.API_KEY,
             leagueId
         )
     }
 
-    fun getTeamInformation(teamId: String): Deferred<Response<TeamResponse>> {
+    fun getTeamInformation(teamId: String): Single<TeamResponse> {
         return endPoint.getTeamInformation(
             BuildConfig.API_KEY,
             teamId
         )
     }
+}
+
+sealed class Result<out R> {
+    object Loading : Result<Nothing>()
+    data class Success(val data: R) : Result<R>()
+    data class Error(val error: Exception) : Result<Nothing>()
 }

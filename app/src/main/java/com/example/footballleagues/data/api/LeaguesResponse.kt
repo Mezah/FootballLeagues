@@ -18,7 +18,7 @@ class LeaguesResponse {
 class Competition {
     @SerializedName("id")
     @Expose
-    var id: Int? = null
+    var id: Int = -1
 
     @SerializedName("area")
     @Expose
@@ -34,7 +34,7 @@ class Competition {
 
     @Expose
     @SerializedName("emblemUrl")
-    var emblemUrl: Any? = null
+    var emblemUrl: String? = null
 
     @Expose
     @SerializedName("plan")
