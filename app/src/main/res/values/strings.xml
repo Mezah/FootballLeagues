@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Football Leagues</string>
+    <string name="teams_title">Teams</string>
 </resources>

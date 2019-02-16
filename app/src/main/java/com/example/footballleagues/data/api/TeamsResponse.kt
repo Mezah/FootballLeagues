@@ -37,7 +37,7 @@ class Team {
     var tla: String? = null
     @SerializedName("crestUrl")
     @Expose
-    var crestUrl: Any? = null
+    var crestUrl: String? = null
     @SerializedName("address")
     @Expose
     var address: String? = null

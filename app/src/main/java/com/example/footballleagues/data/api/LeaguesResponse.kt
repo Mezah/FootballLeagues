@@ -95,5 +95,5 @@ data class Winner(
     var tla: String?,
     @SerializedName("crestUrl")
     @Expose
-    var crestUrl: Any?
+    var crestUrl: String?
 )

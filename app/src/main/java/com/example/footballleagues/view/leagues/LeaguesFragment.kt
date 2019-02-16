@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,7 @@ class LeaguesFragment : BaseFragment() {
                 true -> GridLayoutManager(context!!, 2, RecyclerView.VERTICAL, false)
                 false -> LinearLayoutManager(context!!, RecyclerView.VERTICAL, false)
             }
+            addItemDecoration(DividerItemDecoration(context!!,RecyclerView.VERTICAL))
         }
 
         leaguesViewModel.loadLeaguesList().observe(viewLifecycleOwner, Observer { listResult ->

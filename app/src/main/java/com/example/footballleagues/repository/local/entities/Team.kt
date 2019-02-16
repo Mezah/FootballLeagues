@@ -1,10 +1,10 @@
-package com.example.footballleagues.repository.local.app
+package com.example.footballleagues.repository.local.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.footballleagues.data.api.TeamResponse
-import com.example.footballleagues.repository.local.app.TeamEntity.Companion.TABLE_NAME
+import com.example.footballleagues.repository.local.entities.TeamEntity.Companion.TABLE_NAME
 
 @Entity(tableName = TABLE_NAME)
 class TeamEntity {

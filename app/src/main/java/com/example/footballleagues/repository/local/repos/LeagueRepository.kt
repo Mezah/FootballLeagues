@@ -1,6 +1,5 @@
 package com.example.footballleagues.repository.local.repos
 
-import android.annotation.SuppressLint
 import com.example.footballleagues.repository.local.app.LeagueEntity
 import com.example.footballleagues.repository.local.daos.LeaguesDao
 import com.example.footballleagues.repository.remote.FootballWebClient
@@ -16,7 +15,6 @@ class LeagueRepository(
             .subscribeOn(Schedulers.io())
     }
 
-    @SuppressLint("CheckResult")
     override fun getLeaguesList(): Single<List<LeagueEntity>> {
         return leagueDao.getLeagues().flatMap { list ->
             if (list.isNullOrEmpty()) {
@@ -29,7 +27,6 @@ class LeagueRepository(
             } else {
                 return@flatMap Single.just(list)
             }
-
         }.subscribeOn(Schedulers.io())
     }
 

@@ -15,4 +15,8 @@ val roomModule = module {
     }
     // get leagues table
     single { get<FootballLeaguesDB>().leaguesDao()}
+    // get teams table
+    single { get<FootballLeaguesDB>().teamsDao()}
+    // get team table
+    single { get<FootballLeaguesDB>().teamDao()}
 }
