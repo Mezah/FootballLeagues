@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="league"
             type="com.example.footballleagues.repository.local.app.LeagueEntity" />
+
+        <variable
+            name="goToTeams"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <FrameLayout
+        android:onClick="@{goToTeams}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
-            app:cardElevation="2dp"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp">
+            android:layout_marginBottom="4dp"
+            app:cardElevation="2dp">
 
             <ImageView
                 android:id="@+id/league_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="12dp"
                 android:layout_gravity="center"
-                tools:src="@drawable/ic_baseline_error_24px"
+                android:layout_marginTop="12dp"
                 android:layout_marginBottom="40dp"
                 android:bindImage="@{league.leagueEmblem}"
-                 />
+                tools:src="@drawable/ic_baseline_error_24px" />
 
             <TextView
                 android:id="@+id/league_name"
@@ -41,9 +45,9 @@
                 android:layout_gravity="center|bottom"
                 android:layout_marginBottom="8dp"
                 android:background="@android:color/transparent"
+                android:text="@{league.leagueName}"
                 android:textColor="@android:color/black"
                 android:textSize="25sp"
-                android:text="@{league.leagueName}"
                 tools:text="UEFA Champions League" />
         </androidx.cardview.widget.CardView>
     </FrameLayout>

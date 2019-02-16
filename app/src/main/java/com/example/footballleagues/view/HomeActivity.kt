@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.footballleagues.R
 
 class HomeActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
@@ -25,5 +26,6 @@ class HomeActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         navController.addOnDestinationChangedListener(this)
+        mainToolbar.setupWithNavController(navController)
     }
 }

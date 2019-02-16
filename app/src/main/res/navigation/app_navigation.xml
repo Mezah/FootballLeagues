@@ -19,6 +19,12 @@
         <action
             android:id="@+id/action_teamsFragment_to_teamFragment"
             app:destination="@id/teamFragment" />
+        <argument
+            android:name="leagueId"
+            app:argType="string" />
+        <argument
+            android:name="leagueName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/teamFragment"

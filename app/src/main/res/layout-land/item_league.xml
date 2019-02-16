@@ -8,9 +8,14 @@
         <variable
             name="league"
             type="com.example.footballleagues.repository.local.app.LeagueEntity" />
+
+        <variable
+            name="goToTeams"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <FrameLayout
+        android:onClick="@{goToTeams}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 

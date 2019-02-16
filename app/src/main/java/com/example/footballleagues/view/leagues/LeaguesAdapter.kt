@@ -1,8 +1,10 @@
 package com.example.footballleagues.view.leagues
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -21,15 +23,23 @@ class LeaguesAdapter : ListAdapter<LeagueEntity, LeaguesVH>(LeaguesDiffUtil()) {
 
     override fun onBindViewHolder(holder: LeaguesVH, position: Int) {
         val item = getItem(position)
-        holder.bindData(item)
+        holder.bindData(item, createOnClickListener(item.leagueId.toString(), item.leagueName ?: ""))
+    }
+
+    private fun createOnClickListener(id: String, title: String): View.OnClickListener {
+        return View.OnClickListener {
+            val toTeamsScreen = LeaguesFragmentDirections.actionLeaguesFragmentToTeamsFragment(id, title)
+            it.findNavController().navigate(toTeamsScreen)
+        }
     }
 }
 
 class LeaguesVH(private val view: ItemLeagueBinding) : RecyclerView.ViewHolder(view.root) {
 
-    fun bindData(leagueEntity: LeagueEntity) {
+    fun bindData(leagueEntity: LeagueEntity, clickListener: View.OnClickListener) {
         view.apply {
             league = leagueEntity
+            goToTeams = clickListener
             executePendingBindings()
         }
     }
