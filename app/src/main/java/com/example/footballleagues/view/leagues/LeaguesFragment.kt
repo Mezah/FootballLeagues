@@ -1,11 +1,11 @@
 package com.example.footballleagues.view.leagues
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.footballleagues.R
@@ -25,9 +25,13 @@ class LeaguesFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewBinding = bind(R.layout.fragment_leagues, container)
+        val isGrid = resources.getBoolean(R.bool.grid_layout)
         viewBinding.leaguesList.apply {
-            layoutManager = LinearLayoutManager(context!!, RecyclerView.VERTICAL, false)
             adapter = leaguesAdapter
+            layoutManager = when (isGrid) {
+                true -> GridLayoutManager(context!!, 2, RecyclerView.VERTICAL, false)
+                false -> LinearLayoutManager(context!!, RecyclerView.VERTICAL, false)
+            }
         }
 
         leaguesViewModel.loadLeaguesList().observe(viewLifecycleOwner, Observer { listResult ->
@@ -56,7 +60,4 @@ class LeaguesFragment : BaseFragment() {
 
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-    }
 }
